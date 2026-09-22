@@ -1,0 +1,19 @@
+{
+  "challenge_module": "Review.Challenge",
+  "solution_module": "Euler",
+  "theorem_names": [
+    "Euler.isConvectionVariedSolutionOn_similarityFields_iff",
+    "Euler.Coordinates.computationalElliptic_sinhPullback",
+    "Euler.Axisymmetric.satisfiesRescaledEquationsOn_of_scale_compatibility",
+    "Euler.physicalEnergy_similarity",
+    "Euler.Cartesian.scaling_preserves_equations",
+    "Euler.Linearization.amplitude_modulation",
+    "Euler.Stability.energy_lt_of_initial_lt",
+    "Euler.physical_reconstruction_estimates"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

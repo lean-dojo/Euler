@@ -1,0 +1,9 @@
+.lake/
+_out/
+*.olean
+*.ilean
+*.olean.server
+*.olean.private
+__pycache__/
+.DS_Store
+/main.pdf

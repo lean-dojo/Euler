@@ -1,0 +1,71 @@
+project:
+  name: "euler"
+  version: "1.0.0"
+  description: >-
+    Lean proofs for selected appendix arguments about self-similar Euler profiles:
+    coordinate changes, rescaling, perturbation equations, conditional energy
+    stability, and return to physical time.
+  authors:
+    - "Robert Joseph George"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Stable Singularity of the Euler Equations on R3"
+    authors:
+      - "Adarsh Ganeshram"
+      - "Valentin Duruisseaux"
+      - "Anima Anandkumar"
+    type: "article"
+    id: "https://arxiv.org/abs/2609.10867"
+    location: "Selected arguments in Appendices A-G, I, and J"
+    relationship: "formalizes"
+    license: "CC-BY-4.0"
+    note: "Equation numbers follow the manuscript used for the formalization."
+
+status:
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "Euler.isConvectionVariedSolutionOn_similarityFields_iff"
+      file: "Euler/Similarity/Traveling.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.Coordinates.computationalElliptic_sinhPullback"
+      file: "Euler/Coordinates/SinhCoordinates.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.Axisymmetric.satisfiesRescaledEquationsOn_of_scale_compatibility"
+      file: "Euler/Rescaling/Equations.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.physicalEnergy_similarity"
+      file: "Euler/EnergyScaling.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.Cartesian.scaling_preserves_equations"
+      file: "Euler/Scaling.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.Linearization.amplitude_modulation"
+      file: "Euler/Linearization/Modulation.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.Stability.energy_lt_of_initial_lt"
+      file: "Euler/Stability.lean"
+      comparator_config: "comparator.json"
+    - declaration: "Euler.physical_reconstruction_estimates"
+      file: "Euler/PhysicalTime/Reconstruction.lean"
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "other"
+      tool_setup: "Human-directed formalization with AI assistance for proofs and definitions."
+
+fidelity:
+  divergences: >-
+    Differential operators use total Lean functions built from mathlib's fderiv;
+    classical derivative interpretations require the stated regularity hypotheses.
+    Axis quotients have explicitly defined extensions. The Appendix I argument
+    uses abstract Hilbert-space energy components with pairing bounds as
+    hypotheses. Appendix J derives clock, center, and
+    curl estimates from the stated scale laws, normalization, and regularity.
+
+review:
+  status: "comparator-checked"
+  notes: "Comparator passed for all eight main results."
