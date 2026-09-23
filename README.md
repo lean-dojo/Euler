@@ -1,14 +1,14 @@
-# Euler Singularity Analysis in Lean
+# Euler Self-Similar Singularity in Lean
 
 In [this paper](https://arxiv.org/abs/2609.10867), the authors present evidence
-for a stable singularity forming in finite time
-for three-dimensional Euler flow on the whole space. A physics-informed neural
-network produces an approximate self-similar profile with critical blowup rate
-0.5, which the authors represent with splines for certification. Its transport
-field provides evidence that linear damping may hold across the domain.
-The authors also develop a nonlinear stability framework that reduces the
-remaining analysis to finitely many explicit estimates and numerical constants. This repository formalizes selected derivations from the paper's main text and
-appendices in Lean 4.
+for a finite-time singularity in 3D Euler flow on the whole space.
+A physics-informed neural network finds an approximate self-similar profile at
+the critical scaling exponent 0.5. Splines and interval arithmetic certify bounds
+on its residual errors. The stability framework combines low- and high-order
+damping, with detailed estimates developed in a companion paper. Completing the
+stability proof still requires certifying the remaining constants with sufficient
+margin. This repository formalizes selected derivations and conditional stability
+results from the paper in Lean 4.
 
 ## Build
 
@@ -31,14 +31,14 @@ lemmas shared by the coordinate and rescaling proofs.
 
 | Appendix | Argument | Main file |
 | --- | --- | --- |
-| A, C | Substitute the similarity profile and obtain the stationary equations. | [Similarity/Traveling.lean](Euler/Similarity/Traveling.lean) |
-| B | Change to `sinh` coordinates and handle the radial quotient at the axis. | [Coordinates/SinhCoordinates.lean](Euler/Coordinates/SinhCoordinates.lean), [Residuals.lean](Euler/Coordinates/Residuals.lean) |
-| D | Derive the equations after changing space, time, and amplitude. | [Rescaling/Equations.lean](Euler/Rescaling/Equations.lean) |
-| E | Compute how the weighted energy scales. | [EnergyScaling.lean](Euler/EnergyScaling.lean) |
-| F | Check Euler scaling and the resulting curl and gradient formulas. | [Scaling.lean](Euler/Scaling.lean) |
-| G | Expand around the reference profile and derive the perturbation equations. | [Linearization/Equations.lean](Euler/Linearization/Equations.lean), [Derivatives.lean](Euler/Linearization/Derivatives.lean), [Modulation.lean](Euler/Linearization/Modulation.lean) |
-| I | Show that perturbation energy stays below a chosen radius. | [Stability.lean](Euler/Stability.lean) |
-| J | Return to physical time and prove the clock, center, and curl estimates. | [PhysicalTime/Reconstruction.lean](Euler/PhysicalTime/Reconstruction.lean) |
+| A, C | Substitute the profile ansatz and obtain the profile equations. | [Similarity/Traveling.lean](Euler/Similarity/Traveling.lean) |
+| B | Change to `sinh` coordinates. | [Coordinates/SinhCoordinates.lean](Euler/Coordinates/SinhCoordinates.lean), [Residuals.lean](Euler/Coordinates/Residuals.lean) |
+| D | Derive the dynamic rescaling equations. | [Rescaling/Equations.lean](Euler/Rescaling/Equations.lean) |
+| E | Derive energy identities. | [EnergyScaling.lean](Euler/EnergyScaling.lean) |
+| F | Check Euler scaling. | [Scaling.lean](Euler/Scaling.lean) |
+| G | Derive the linearization and modulation equations. | [Linearization/Equations.lean](Euler/Linearization/Equations.lean), [Derivatives.lean](Euler/Linearization/Derivatives.lean), [Modulation.lean](Euler/Linearization/Modulation.lean) |
+| I | Prove the conditional single-radius stability theorem. | [Stability.lean](Euler/Stability.lean) |
+| J | Proof of the physical reconstruction proposition. | [PhysicalTime/Reconstruction.lean](Euler/PhysicalTime/Reconstruction.lean) |
 
 ## Notation
 
@@ -55,8 +55,10 @@ The rescaling convention is `A = 1/s_u`, `L = s_r`, and `A_omega = 1/s_omega`.
 `curl`, `divergence`, `gradient`, and `advection`. Spatial derivatives hold time fixed.
 For example, `Euler.Cartesian.curl_scaledVelocity` gives the curl scaling law.
 
-The Appendix I energy bound assumes the PDE evolution and five energy estimates.
-The Appendix J reconstruction uses the stated scale laws, normalization, and regularity.
+The Appendix I energy bound assumes the PDE evolution, five energy estimates,
+and a strict stability margin. The Appendix J reconstruction assumes a global
+rescaled solution satisfying the stability and modulation bounds, a uniformly
+negative amplitude rate, and the stated scale laws, normalization, and regularity.
 
 [formalization.yaml](formalization.yaml) lists the main theorems, axioms, and checks.
 
@@ -79,8 +81,8 @@ Lean formalization by Robert Joseph George!
 BibTeX for the [paper](https://arxiv.org/abs/2609.10867):
 
 ```bibtex
-@misc{ganeshram2026stable,
-  title         = {Stable Singularity of the {Euler} Equations on {$\mathbb{R}^3$}},
+@misc{ganeshram2026,
+  title         = {Self-Similar Singularity of the {Euler} Equations on {$\mathbb{R}^3$}},
   author        = {Ganeshram, Adarsh and Duruisseaux, Valentin and Anandkumar, Anima},
   year          = {2026},
   eprint        = {2609.10867},
